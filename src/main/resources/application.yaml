@@ -1,0 +1,32 @@
+server:
+  port: 8082
+spring:
+  application:
+    name: catalogo-service
+  # NUEVO: pide su configuración al config-server (si no está, usa los valores de este archivo)
+  config:
+    import: optional:configserver:http://localhost:8888
+  cloud:
+    # NUEVO: Spring Cloud 2025.1 está certificado para Boot 4.0; con Boot 4.1 se desactiva solo la verificación
+    compatibility-verifier:
+      enabled: false
+  # Los valores siguientes son de respaldo: con el config-server activo, los entrega el servidor
+  datasource:
+    url: jdbc:postgresql://localhost:5433/catalogo_db
+    username: tambo
+    password: tambo123
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: tambo
+    password: tambo123
+    listener:
+      simple:
+        default-requeue-rejected: false
+app:
+  jwt:
+    secret: tambo-market-clave-secreta-cibertec-2026-minimo-32
